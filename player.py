@@ -44,6 +44,7 @@ class Player(Camera):
         self.is_shot = False
         #
         self.key = None
+        self.is_moving = False
 
     def handle_events(self, event):
         if event.type == pg.KEYDOWN:
@@ -200,6 +201,11 @@ class Player(Camera):
             next_step += self.move_right(vel)
         if key_state[KEYS['STRAFE_L']]:
             next_step += self.move_left(vel)
+        #
+        if next_step.x != 0 or next_step.y != 0:
+            self.is_moving = True
+        else:
+            self.is_moving = False
         #
         self.move(next_step=next_step)
 

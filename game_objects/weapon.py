@@ -1,3 +1,4 @@
+import math
 from game_objects.game_object import GameObject
 from meshes.quad_mesh import QuadMesh
 from settings import *
@@ -20,8 +21,30 @@ class Weapon:
         #
         self.frame = 0
         self.anim_counter = 0
+        #
+        self.bob_phase = 0
+        self.bob_amplitude = 0
 
     def update(self):
+        # weapon bobbing
+        bob_speed = 10
+        target_amplitude = 0.04 if self.player.is_moving else 0
+        
+        # Smoothly interpolate amplitude
+        self.bob_amplitude += (target_amplitude - self.bob_amplitude) * 0.1
+
+        if self.player.is_moving:
+            # Increment phase based on time delta (converted to seconds)
+            self.bob_phase += bob_speed * self.app.delta_time * 0.001
+            
+        # Use same frequency for both axes to create smooth elliptical motion
+        offset_x = math.sin(self.bob_phase) * self.bob_amplitude * 3.0
+        offset_y = math.sin(self.bob_phase * 2) * self.bob_amplitude * 0.5
+        
+        self.pos = WEAPON_POS + glm.vec3(offset_x, offset_y, 0)
+        
+        self.m_model = GameObject.get_model_matrix(self)
+
         if self.player.is_shot and self.app.anim_trigger:
             self.anim_counter += 1
 
