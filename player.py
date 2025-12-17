@@ -39,6 +39,7 @@ class Player(Camera):
         # attribs
         self.health = self.eng.player_attribs.health
         self.ammo = self.eng.player_attribs.ammo
+        self.is_invulnerable = False
         #
         self.tile_pos: Optional[Tuple[int, int]] = None
 

@@ -85,9 +85,10 @@ class NPC(GameObject):
                 self.play(self.sound.enemy_attack[self.npc_id])
 
             if random.random() < self.hit_probability:
-                self.player.health -= self.damage
-                #
-                self.play(self.sound.player_hurt)
+                if not self.player.is_invulnerable:
+                    self.player.health -= self.damage
+                    #
+                    self.play(self.sound.player_hurt)
             return True
 
     def get_path_to_player(self):

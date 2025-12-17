@@ -7,6 +7,7 @@ from config_manager import ConfigManager
 from menu.menu_renderer import MenuRenderer
 from menu.main_menu import MainMenu
 from menu.settings_menu import SettingsMenu
+from dev_console import DevConsole
 
 
 class Game:
@@ -80,6 +81,7 @@ class Game:
         
         # Engine (will be initialized when starting new game)
         self.engine: Engine | None = None
+        self.dev_console = DevConsole(self)
 
         self.anim_trigger = False
         self.anim_event = pg.USEREVENT + 0
@@ -97,6 +99,7 @@ class Game:
             pg.event.set_grab(True)
             pg.mouse.set_visible(False)
             self.engine = Engine(self)
+            self.dev_console.sync_with_engine()
     
     def _show_settings(self):
         """Show settings menu."""
@@ -163,7 +166,8 @@ class Game:
     def update(self):
         if self.state_manager.is_state(GameState.PLAYING):
             assert self.engine is not None
-            self.engine.update()
+            if not self.dev_console.active:
+                self.engine.update()
         elif self.state_manager.is_state(GameState.MENU):
             self.current_menu.update(self.delta_time)
         #
@@ -178,6 +182,7 @@ class Game:
         if self.state_manager.is_state(GameState.PLAYING):
             assert self.engine is not None
             self.engine.render()
+            self.dev_console.render()
         elif self.state_manager.is_state(GameState.MENU):
             # Render menu to surface
             self.current_menu.render(self.menu_surface)
@@ -192,6 +197,10 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.is_running = False
+                continue
+
+            if self.dev_console.handle_event(event):
+                continue
             
             # Handle ESC key based on state
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
@@ -213,6 +222,8 @@ class Game:
             
             # Route events based on state
             if self.state_manager.is_state(GameState.PLAYING):
+                if self.dev_console.active:
+                    continue
                 assert self.engine is not None
                 self.engine.handle_events(event=event)
             elif self.state_manager.is_state(GameState.MENU):

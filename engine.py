@@ -22,6 +22,7 @@ class Engine:
         self.player: Player | None = None
         self.shader_program: ShaderProgram | None = None
         self.scene: Scene | None = None
+        self.god_mode = False
 
         self.level_map: LevelMap | None = None
         self.ray_casting: RayCasting | None = None
@@ -31,6 +32,7 @@ class Engine:
     def new_game(self):
         pg.mixer.music.play(-1)
         self.player = Player(self)
+        self.player.is_invulnerable = self.god_mode
         self.shader_program = ShaderProgram(self)
         self.level_map = LevelMap(
             self, tmx_file=f'level_{self.player_attribs.num_level}.tmx'
@@ -53,6 +55,11 @@ class Engine:
     def handle_events(self, event):
         assert self.player is not None
         self.player.handle_events(event=event)
+
+    def set_god_mode(self, enabled: bool):
+        self.god_mode = enabled
+        if self.player:
+            self.player.is_invulnerable = enabled
 
     def update(self):
         assert self.player is not None
