@@ -3,6 +3,7 @@ from meshes.instanced_quad_mesh import InstancedQuadMesh
 from game_objects.hud import HUD
 from game_objects.weapon import Weapon
 from meshes.weapon_mesh import WeaponMesh
+from crosshair import Crosshair
 
 
 class Scene:
@@ -15,6 +16,7 @@ class Scene:
         self.items = self.eng.level_map.item_map.values()
         self.npc = self.eng.level_map.npc_map.values()
         self.weapon = Weapon(eng)
+        self.crosshair = Crosshair(eng)
 
         self.instanced_door_mesh = InstancedQuadMesh(
             eng, self.doors, eng.shader_program.instanced_door
@@ -51,3 +53,5 @@ class Scene:
         self.instanced_npc_mesh.render()
         # weapon
         self.weapon_mesh.render()
+        # reticle
+        self.crosshair.render()
