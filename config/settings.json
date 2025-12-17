@@ -1,0 +1,10 @@
+{
+  "video": {
+    "resolution": [
+      2560,
+      1440
+    ],
+    "display_mode": "windowed",
+    "vsync": true
+  }
+}
