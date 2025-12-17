@@ -25,48 +25,49 @@ class LevelMap:
 
     def parse_level(self):
         # get player pos
-        player = self.tiled_map.get_layer_by_name('player').pop()
+        player_layer = self.tiled_map.get_layer_by_name('player')
+        player = player_layer.pop()  # type: ignore
         player_pos = glm.vec3(player.x / TEX_SIZE, PLAYER_HEIGHT, player.y / TEX_SIZE)
         # set pos
         self.eng.player.position = player_pos
 
-        walls = self.tiled_map.get_layer_by_name('walls')
-        floors = self.tiled_map.get_layer_by_name('floors')
-        ceilings = self.tiled_map.get_layer_by_name('ceilings')
+        walls = self.tiled_map.get_layer_by_name('walls')  # type: ignore
+        floors = self.tiled_map.get_layer_by_name('floors')  # type: ignore
+        ceilings = self.tiled_map.get_layer_by_name('ceilings')  # type: ignore
 
         for ix in range(self.width):
             for iz in range(self.depth):
-                if gid := walls.data[iz][ix]:
+                if gid := walls.data[iz][ix]:  # type: ignore
                     # wall hash map
                     self.wall_map[(ix, iz)] = self.get_id(gid)
 
-                if gid := floors.data[iz][ix]:
+                if gid := floors.data[iz][ix]:  # type: ignore
                     # floor hash map
                     self.floor_map[(ix, iz)] = self.get_id(gid)
 
-                if gid := ceilings.data[iz][ix]:
+                if gid := ceilings.data[iz][ix]:  # type: ignore
                     # ceiling  hash map
                     self.ceil_map[(ix, iz)] = self.get_id(gid)
 
         # get doors
-        door_objects = self.tiled_map.get_layer_by_name('doors')
-        for obj in door_objects:
+        door_objects = self.tiled_map.get_layer_by_name('doors')  # type: ignore
+        for obj in door_objects:  # type: ignore
             # door hash map
             pos = int(obj.x / TEX_SIZE), int(obj.y / TEX_SIZE)
             door = Door(self, tex_id=self.get_id(obj.gid), x=pos[0], z=pos[1])
             self.door_map[pos] = door
 
         # get items
-        items = self.tiled_map.get_layer_by_name('items')
-        for obj in items:
+        items = self.tiled_map.get_layer_by_name('items')  # type: ignore
+        for obj in items:  # type: ignore
             # item hash map
             pos = int(obj.x / TEX_SIZE), int(obj.y / TEX_SIZE)
             item = Item(self, tex_id=self.get_id(obj.gid), x=pos[0], z=pos[1])
             self.item_map[pos] = item
 
         # get npc
-        npc = self.tiled_map.get_layer_by_name('npc')
-        for obj in npc:
+        npc = self.tiled_map.get_layer_by_name('npc')  # type: ignore
+        for obj in npc:  # type: ignore
             # npc map
             pos = int(obj.x / TEX_SIZE), int(obj.y / TEX_SIZE)
             npc = NPC(self, tex_id=self.get_id(obj.gid), x=pos[0], z=pos[1])

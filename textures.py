@@ -9,7 +9,7 @@ class Textures:
         self.ctx = eng.ctx
 
         # build texture arrays
-        TextureArrayBuilder(should_build=True)
+        TextureArrayBuilder(should_build=False)
 
         # load textures
         self.texture_array = self.load('texture_array/texture_array.png')

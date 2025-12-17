@@ -21,7 +21,7 @@ class TextureArrayBuilder:
         ]
         texture_paths = sorted(
             texture_paths,
-            key=lambda tex_path: int(re.search('\\d+', str(tex_path)).group(0))
+            key=lambda tex_path: int(match.group(0)) if (match := re.search('\\d+', str(tex_path))) else 0
         )
         # empty tex array
         texture_array = pg.Surface([tex_size, tex_size * len(texture_paths)], pg.SRCALPHA, 32)

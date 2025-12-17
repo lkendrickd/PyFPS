@@ -99,39 +99,39 @@ ITEM_SETTINGS = {
 }
 
 # hud object IDs
-ID.HEALTH_DIGIT_0 = 0 + NUM_TEXTURES
-ID.HEALTH_DIGIT_1 = 1 + NUM_TEXTURES
-ID.HEALTH_DIGIT_2 = 2 + NUM_TEXTURES
-ID.AMMO_DIGIT_0 = 3 + NUM_TEXTURES
-ID.AMMO_DIGIT_1 = 4 + NUM_TEXTURES
-ID.AMMO_DIGIT_2 = 5 + NUM_TEXTURES
-ID.FPS_DIGIT_0 = 6 + NUM_TEXTURES
-ID.FPS_DIGIT_1 = 7 + NUM_TEXTURES
-ID.FPS_DIGIT_2 = 8 + NUM_TEXTURES
-ID.FPS_DIGIT_3 = 9 + NUM_TEXTURES
+HEALTH_DIGIT_0 = 0 + NUM_TEXTURES
+HEALTH_DIGIT_1 = 1 + NUM_TEXTURES
+HEALTH_DIGIT_2 = 2 + NUM_TEXTURES
+AMMO_DIGIT_0 = 3 + NUM_TEXTURES
+AMMO_DIGIT_1 = 4 + NUM_TEXTURES
+AMMO_DIGIT_2 = 5 + NUM_TEXTURES
+FPS_DIGIT_0 = 6 + NUM_TEXTURES
+FPS_DIGIT_1 = 7 + NUM_TEXTURES
+FPS_DIGIT_2 = 8 + NUM_TEXTURES
+FPS_DIGIT_3 = 9 + NUM_TEXTURES
 
 HUD_SETTINGS = {
-    ID.HEALTH_DIGIT_0: {
+    HEALTH_DIGIT_0: {
         'scale': 0.1,
         'pos': glm.vec2(0.85, -0.95),
     },
-    ID.HEALTH_DIGIT_1: {
+    HEALTH_DIGIT_1: {
         'scale': 0.1,
         'pos': glm.vec2(0.90, -0.95),
     },
-    ID.HEALTH_DIGIT_2: {
+    HEALTH_DIGIT_2: {
         'scale': 0.1,
         'pos': glm.vec2(0.95, -0.95),
     },
-    ID.AMMO_DIGIT_0: {
+    AMMO_DIGIT_0: {
         'scale': 0.1,
         'pos': glm.vec2(-0.95, -0.95),
     },
-    ID.AMMO_DIGIT_1: {
+    AMMO_DIGIT_1: {
         'scale': 0.1,
         'pos': glm.vec2(-0.90, -0.95),
     },
-    ID.AMMO_DIGIT_2: {
+    AMMO_DIGIT_2: {
         'scale': 0.1,
         'pos': glm.vec2(-0.85, -0.95),
     },
@@ -143,19 +143,19 @@ HUD_SETTINGS = {
         'scale': 0.25,
         'pos': glm.vec2(0.9, -0.82),
     },
-    ID.FPS_DIGIT_0: {
+    FPS_DIGIT_0: {
         'scale': 0.11,
         'pos': glm.vec2(-0.75, 0.87),
     },
-    ID.FPS_DIGIT_1: {
+    FPS_DIGIT_1: {
         'scale': 0.11,
         'pos': glm.vec2(-0.68, 0.87),
     },
-    ID.FPS_DIGIT_2: {
+    FPS_DIGIT_2: {
         'scale': 0.11,
         'pos': glm.vec2(-0.61, 0.87),
     },
-    ID.FPS_DIGIT_3: {
+    FPS_DIGIT_3: {
         'scale': 0.11,
         'pos': glm.vec2(-0.54, 0.87),
     },

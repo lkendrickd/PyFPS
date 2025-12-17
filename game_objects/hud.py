@@ -28,17 +28,17 @@ class HUD:
         self.ammo = HUDObject(self, ID.AMMO)
         self.fps = HUDObject(self, ID.FPS)
         #
-        self.ammo_digit_0 = HUDObject(self, ID.AMMO_DIGIT_0)
-        self.ammo_digit_1 = HUDObject(self, ID.AMMO_DIGIT_1)
-        self.ammo_digit_2 = HUDObject(self, ID.AMMO_DIGIT_2)
+        self.ammo_digit_0 = HUDObject(self, AMMO_DIGIT_0)
+        self.ammo_digit_1 = HUDObject(self, AMMO_DIGIT_1)
+        self.ammo_digit_2 = HUDObject(self, AMMO_DIGIT_2)
         #
-        self.health_digit_0 = HUDObject(self, ID.HEALTH_DIGIT_0)
-        self.health_digit_1 = HUDObject(self, ID.HEALTH_DIGIT_1)
-        self.health_digit_2 = HUDObject(self, ID.HEALTH_DIGIT_2)
+        self.health_digit_0 = HUDObject(self, HEALTH_DIGIT_0)
+        self.health_digit_1 = HUDObject(self, HEALTH_DIGIT_1)
+        self.health_digit_2 = HUDObject(self, HEALTH_DIGIT_2)
         #
-        self.fps_digit_0 = HUDObject(self, ID.FPS_DIGIT_0)
-        self.fps_digit_1 = HUDObject(self, ID.FPS_DIGIT_1)
-        self.fps_digit_2 = HUDObject(self, ID.FPS_DIGIT_2)
+        self.fps_digit_0 = HUDObject(self, FPS_DIGIT_0)
+        self.fps_digit_1 = HUDObject(self, FPS_DIGIT_1)
+        self.fps_digit_2 = HUDObject(self, FPS_DIGIT_2)
         #
         self.digits = [0, 0, 0]
 

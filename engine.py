@@ -19,13 +19,13 @@ class Engine:
         self.sound = Sound()
 
         self.player_attribs = PlayerAttribs()
-        self.player: Player = None
-        self.shader_program: ShaderProgram = None
-        self.scene: Scene = None
+        self.player: Player | None = None
+        self.shader_program: ShaderProgram | None = None
+        self.scene: Scene | None = None
 
-        self.level_map: LevelMap = None
-        self.ray_casting: RayCasting = None
-        self.path_finder: PathFinder = None
+        self.level_map: LevelMap | None = None
+        self.ray_casting: RayCasting | None = None
+        self.path_finder: PathFinder | None = None
         self.new_game()
 
     def new_game(self):
@@ -40,6 +40,7 @@ class Engine:
         self.scene = Scene(self)
 
     def update_npc_map(self):
+        assert self.level_map is not None
         new_npc_map = {}
         for npc in self.level_map.npc_list:
             if npc.is_alive:
@@ -50,13 +51,18 @@ class Engine:
         self.level_map.npc_map = new_npc_map
 
     def handle_events(self, event):
+        assert self.player is not None
         self.player.handle_events(event=event)
 
     def update(self):
+        assert self.player is not None
+        assert self.shader_program is not None
+        assert self.scene is not None
         self.update_npc_map()
         self.player.update()
         self.shader_program.update()
         self.scene.update()
 
     def render(self):
+        assert self.scene is not None
         self.scene.render()

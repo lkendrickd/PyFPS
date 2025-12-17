@@ -1,7 +1,11 @@
 from itertools import cycle
+from typing import Tuple, Optional, Dict, TYPE_CHECKING
 from camera import Camera
 from settings import *
 import random
+
+if TYPE_CHECKING:
+    from game_objects.weapon import Weapon
 
 
 class PlayerAttribs:
@@ -28,18 +32,21 @@ class Player(Camera):
         super().__init__(position, yaw, pitch)
 
         # these maps will update when instantiated LevelMap
-        self.door_map, self.wall_map, self.item_map = None, None, None
+        self.door_map: Optional[Dict] = None
+        self.wall_map: Optional[Dict] = None
+        self.item_map: Optional[Dict] = None
 
         # attribs
         self.health = self.eng.player_attribs.health
         self.ammo = self.eng.player_attribs.ammo
         #
-        self.tile_pos: Tuple[int, int] = None
+        self.tile_pos: Optional[Tuple[int, int]] = None
 
         # weapon
         self.weapons = self.eng.player_attribs.weapons
         self.weapon_id = self.eng.player_attribs.weapon_id
         self.weapon_cycle = cycle(self.eng.player_attribs.weapons.keys())
+        self.weapon_instance: Optional['Weapon'] = None  # Set by Weapon class
         #
         self.is_shot = False
         #
@@ -103,7 +110,8 @@ class Player(Camera):
 
     def switch_weapon(self, weapon_id):
         if self.weapons[weapon_id]:
-            self.weapon_instance.weapon_id = self.weapon_id = weapon_id
+            if self.weapon_instance is not None:
+                self.weapon_instance.weapon_id = self.weapon_id = weapon_id
 
     def do_shot(self):
         if self.weapon_id == ID.KNIFE_0:
@@ -127,6 +135,8 @@ class Player(Camera):
         self.tile_pos = int(self.position.x), int(self.position.z)
 
     def pick_up_item(self):
+        if self.item_map is None or self.tile_pos is None:
+            return None
         if self.tile_pos not in self.item_map:
             return None
 
@@ -158,6 +168,8 @@ class Player(Camera):
         del self.item_map[self.tile_pos]
 
     def interact_with_door(self):
+        if self.door_map is None:
+            return None
         pos = self.position + self.forward
         int_pos = int(pos.x), int(pos.z)
 
@@ -217,6 +229,8 @@ class Player(Camera):
             self.position.z += next_step[1]
 
     def is_collide(self, dx=0, dz=0):
+        if self.door_map is None or self.wall_map is None:
+            return False
         int_pos = (
             int(self.position.x + dx + (
                 PLAYER_SIZE if dx > 0 else -PLAYER_SIZE if dx < 0 else 0)

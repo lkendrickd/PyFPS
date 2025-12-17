@@ -15,7 +15,7 @@ class Game:
         pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF)
         self.ctx = mgl.create_context()
 
-        self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.BLEND)
+        self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.BLEND)  # type: ignore
         self.ctx.gc_mode = 'auto'
 
         self.clock = pg.time.Clock()
@@ -47,7 +47,7 @@ class Game:
         pg.display.set_caption(f'{self.fps_value}')
 
     def render(self):
-        self.ctx.clear(color=BG_COLOR)
+        self.ctx.clear(color=(*BG_COLOR, 1.0))
         self.engine.render()
         pg.display.flip()
 
